@@ -1,3 +1,5 @@
 *.pyc
 __pycache__/
 not_working/
+.gitignore
+.DS_Store
