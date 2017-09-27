@@ -5,6 +5,31 @@ from lighting import Lighting
 from camera import Camera
 from render import Render
 
+def initiateCamera():
+    if not sceneHasCamera(): # scene has no camera
+        if objectsHaveCamera() is None:
+            if len(bpy.data.cameras) > 0:
+                cam = bpy.data.cameras[0]
+            else:
+                cam = bpy.data.cameras.new("Camera")
+            cam_ob = bpy.data.objects.new("Camera", cam)
+            bpy.context.scene.objects.link(cam_ob)
+        else:
+            cam_ob = objectsHaveCamera()
+            if len(bpy.data.cameras) > 0:
+                cam = bpy.data.cameras[0]
+            else:
+                cam = bpy.data.cameras.new("Camera")
+            bpy.context.scene.objects.link(cam_ob)
+
+    cam = Camera()
+    cam.type = 'PERSP' # 'ORTHO'
+    cam.location = (4.5,-2,2)
+    cam.pointing = (0,0,0)
+    cam.lens = 50
+    # cam.ortho_scale = 2.0
+    return cam
+
 def createParticleMesh(coords, color, halo_size, name):
     color = getRightColor(color)
 
