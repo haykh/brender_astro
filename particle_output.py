@@ -3,38 +3,22 @@ import numpy as np
 import random
 import os, errno
 
-def makeParticles(out_path, fname, n_particles):
+def makeParticles(out_path, fname, shape, n_particles):
     try:
         os.makedirs(out_path)
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
 
+    sx, sy, sz = shape
+
     data = h5py.File(fname, 'r')
-    xs_e = data['xe'].value
-    ys_e = data['ye'].value
-    zs_e = data['ze'].value
-    xs_i = data['xi'].value
-    ys_i = data['yi'].value
-    zs_i = data['zi'].value
-
-    # coordinate normalization needs to be fixed!!!
-
-    xs_e -= max(xs_e) * 0.5
-    ys_e -= max(ys_e) * 0.5
-    zs_e -= max(zs_e) * 0.5
-    xs_i -= max(xs_i) * 0.5
-    ys_i -= max(ys_i) * 0.5
-    zs_i -= max(zs_i) * 0.5
-
-    xs_e /= max(zs_i)
-    ys_e /= max(zs_i)
-    zs_e /= max(zs_i)
-    xs_i /= max(zs_i)
-    ys_i /= max(zs_i)
-    zs_i /= max(zs_i)
-
-    # / coordinate normalization needs to be fixed!!!
+    xs_e = (np.array(data['xe'].value) / np.array(sx) - np.array(0.5)) * 2.
+    ys_e = (np.array(data['ye'].value) / np.array(sy) - np.array(0.5)) * 2.
+    zs_e = (np.array(data['ze'].value) / np.array(sz) - np.array(0.5)) * 2.
+    xs_i = (np.array(data['xi'].value) / np.array(sx) - np.array(0.5)) * 2.
+    ys_i = (np.array(data['yi'].value) / np.array(sy) - np.array(0.5)) * 2.
+    zs_i = (np.array(data['zi'].value) / np.array(sz) - np.array(0.5)) * 2.
 
     data = []
     es = range(n_particles)

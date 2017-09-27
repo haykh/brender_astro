@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os, errno
 
-def makeBvox(out_path, fname, valueFunc, normalizeFunc, max_val, prefix = 'dens'):
+def makeBvox(out_path, fname, valueFunc, normalizeFunc, max_val = 1., prefix = 'dens'):
     data = h5py.File(fname, 'r')
     z = valueFunc(data)
     z = np.array(z)

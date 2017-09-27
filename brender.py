@@ -5,7 +5,7 @@ from lighting import Lighting
 from camera import Camera
 from render import Render
 
-def initiateCamera():
+def initilizeCamera():
     if not sceneHasCamera(): # scene has no camera
         if objectsHaveCamera() is None:
             if len(bpy.data.cameras) > 0:
@@ -29,6 +29,13 @@ def initiateCamera():
     cam.lens = 50
     # cam.ortho_scale = 2.0
     return cam
+
+def getCamera():
+    if objectsHaveCamera() is None:
+        print('No camera found in the scene.')
+        return None
+    else:
+        return objectsHaveCamera()
 
 def createParticleMesh(coords, color, halo_size, name):
     color = getRightColor(color)
@@ -107,7 +114,7 @@ def createNetronStar(name, size, loc = (0, 0, 0), color = (0, 0.16, 0.7)):
     mat.emit = 0.4
     mat.use_shadows = False
     mat.use_cast_shadows = False
-    setMaterial(sphere, mat)
+    setMaterial(bpy.data.objects[name], mat)
     return sphere
 
 def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 100, max_dist = 120, min_seglen = 100., seg_step = 0.2):
