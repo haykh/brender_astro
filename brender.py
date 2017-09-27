@@ -21,12 +21,12 @@ def initilizeCamera():
             else:
                 cam = bpy.data.cameras.new("Camera")
             bpy.context.scene.objects.link(cam_ob)
-
     cam = Camera()
     cam.type = 'PERSP' # 'ORTHO'
     cam.location = (4.5,-2,2)
     cam.pointing = (0,0,0)
     cam.lens = 50
+    bpy.context.scene.camera = bpy.data.objects['Camera']
     # cam.ortho_scale = 2.0
     return cam
 
