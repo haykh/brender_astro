@@ -171,7 +171,7 @@ def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 
         trajectories = np.random.choice(trajectories, n_traj)
     return trajectories
 
-def createFieldlines(name, trajectories):
+def createFieldlines(name, trajectories, intens = 1., col = (1, 1, 1)):
     import numpy as np
     curveData = bpy.data.curves.new('crv_' + name, type='CURVE')
     print("Curve was created.")
@@ -202,10 +202,10 @@ def createFieldlines(name, trajectories):
     mat = bpy.data.materials.new('crv_' + name)
     print("Material was created.")
     print("\tname: " + 'crv_' + name)
-    mat.emit = 1
     mat.specular_intensity = 0
     mat.diffuse_intensity = 0
-    mat.emit = 10
+    mat.emit = intens
+    mat.diffuse_color = col
     mat.use_shadows = False
     mat.use_cast_shadows = False
     setMaterial(curveOB, mat)
