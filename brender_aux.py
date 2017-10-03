@@ -116,6 +116,11 @@ def makeVolumeMaterial(voxfile, cmap, name, intens):
 
     return mat
 
+def getShape(fpath, key):
+    import h5py
+    f = h5py.File(fpath, 'r')
+    return f[key].value.shape[::-1]
+
 def makeCube(name, size = (2,2,2), loc = (0,0,0)):
     import bmesh
     bpyscene = bpy.context.scene

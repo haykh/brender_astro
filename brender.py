@@ -78,8 +78,8 @@ def createParticleMesh(coords, color, halo_size, name):
     bpy.ops.object.mode_set(mode='OBJECT')
     return ob
 
-def createBoundingBox(name, col = (0., 0.7, 0.8), intens = 0.1):
-    b_cube = makeCube('bbox_' + name)
+def createBoundingBox(name, col = (0., 0.7, 0.8), intens = 0.1, shape = (2,2,2)):
+    b_cube = makeCube('bbox_' + name, size = shape)
     print("Cube was created.")
     print("\tname: " + 'bbox_' + name)
     b_mat = bpy.data.materials.new('bbox_' + name)
@@ -91,8 +91,8 @@ def createBoundingBox(name, col = (0., 0.7, 0.8), intens = 0.1):
     setMaterial(b_cube, b_mat)
     return b_cube
 
-def createVolumePlot(voxfile, cmap, name, intens = 10):
-    my_cube = makeCube(name)
+def createVolumePlot(voxfile, cmap, name, intens = 10, shape = (2,2,2)):
+    my_cube = makeCube(name, size=shape)
     print("Cube was created.")
     print("\tname: " + name)
     # cmap is given in the form: [col1, col2, col3, ...], where
@@ -100,6 +100,7 @@ def createVolumePlot(voxfile, cmap, name, intens = 10):
     # e.g. [[0.0, (0, 0, 1, 0), [0.2, (0, 0, 1, 0.5)], [1, (1, 0, 0, 1.)]]
     volume_mat = makeVolumeMaterial(voxfile, cmap, name, intens)
     setMaterial(my_cube, volume_mat)
+    my_cube.dimensions = shape
     return my_cube
 
 def createNetronStar(name, size, loc = (0, 0, 0), color = (0, 0.16, 0.7)):
