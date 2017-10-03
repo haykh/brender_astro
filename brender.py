@@ -80,6 +80,7 @@ def createParticleMesh(coords, color, halo_size, name):
 
 def createBoundingBox(name, col = (0., 0.7, 0.8), intens = 0.1, shape = (2,2,2)):
     b_cube = makeCube('bbox_' + name, size = shape)
+    b_cube.dimensions = shape
     print("Cube was created.")
     print("\tname: " + 'bbox_' + name)
     b_mat = bpy.data.materials.new('bbox_' + name)
