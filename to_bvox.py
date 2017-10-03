@@ -24,3 +24,7 @@ def makeBvox(out_path, fname, valueFunc, normalizeFunc, max_val = 1., prefix = '
     print("bvox saved here:")
     print("\t" + out_path + prefix + '.bvox')
     return out_path + prefix + '.bvox'
+
+def getShape(fpath, key):
+    f = h5py.File(fpath, 'r')
+    return f[key].value.shape[::-1]
