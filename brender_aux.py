@@ -15,7 +15,7 @@ def objectsHaveCamera():
 def objectsHaveLamp():
     for obj in bpy.data.objects:
         if 'Lamp' in obj.name:
-            return True
+            return obj.name
     return False
 
 def makeHaloMaterial(name, diffuse, specular = (1, 1, 1), alpha = 1, emiss = 1., mat_type = 'HALO', halo_size = None):
@@ -201,7 +201,7 @@ def delete_object(name, scene_name = 'Scene'):
     deselect_all()
     bpy.data.objects[name].select = True
     bpy.context.scene.objects.active = bpy.data.objects[name]
-    if bpy.data.objects[name].type != 'LAMP':
+    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY':
         # delete assosiated materials first
         delete_unused_materials(name)
         # delete associated textures
@@ -209,11 +209,12 @@ def delete_object(name, scene_name = 'Scene'):
     # now, delete object
     # have to do it this way to actually remove it from memeroy
     me = bpy.data.objects[name].data
-    me.user_clear()
-    if bpy.data.objects[name].type != 'LAMP':
+    if me:
+        me.user_clear()
+    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY':
         bpy.data.meshes.remove(me)
     else:
-        bpy.data.objects.remove(bpy.data.objects[name], True)
+        bpy.data.objects.remove(bpy.data.objects[name])
     print('Deleted object.')
     print('\tname: ' + name)
     # also, delete empty, if there is one

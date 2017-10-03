@@ -9,4 +9,6 @@ import bpy
 ##########################################################################
 light = brender.Lighting('EMISSION')
 if brender.objectsHaveLamp():
-    brender.delete_object('Lamp')
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.data.objects[brender.objectsHaveLamp()].select = True
+    bpy.ops.object.delete()

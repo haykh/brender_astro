@@ -5,7 +5,7 @@ from lighting import Lighting
 from camera import Camera
 from render import Render
 
-def initilizeCamera():
+def initializeCamera():
     if not sceneHasCamera(): # scene has no camera
         if objectsHaveCamera() is None:
             if len(bpy.data.cameras) > 0:

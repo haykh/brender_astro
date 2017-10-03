@@ -1,6 +1,5 @@
 import h5py
 import numpy as np
-import matplotlib.pyplot as plt
 import os, errno
 
 def makeBvox(out_path, fname, valueFunc, normalizeFunc, max_val = 1., prefix = 'dens'):
