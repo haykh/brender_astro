@@ -87,6 +87,8 @@ def makeVolumeMaterial(voxfile, cmap, name, intens):
     mat.volume.density_scale = 2
     mat.volume.emission = 0
     mat.volume.scattering = 1.4
+    mat.volume.step_method = 'CONSTANT'
+    mat.volume.step_size = 0.01
 
     matSlot = mat.texture_slots.add()
     matTex = bpy.data.textures.new('tex_' + name, 'VOXEL_DATA')
