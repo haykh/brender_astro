@@ -1,5 +1,8 @@
 import bpy
 
+def runScript(dir):
+    exec(compile(open(dir).read(), dir, 'exec'))
+
 def importFieldlines(out_path):
     import numpy as np
     return np.load(out_path + '.npy')
