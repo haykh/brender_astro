@@ -166,13 +166,13 @@ def integrate_2d(xm, ym, x, y, u, v, gmap, seglen):
             break
     return points
 
-def integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seglen, max_dist):
+def integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seglen, region):
     nx = len(gmap[0][0])
     ny = len(gmap[0])
     nz = len(gmap)
-    xmid = 0.5 * (x[-1] - x[0])
-    ymid = 0.5 * (y[-1] - y[0])
-    zmid = 0.5 * (z[-1] - z[0])
+    # xmid = 0.5 * (x[-1] - x[0])
+    # ymid = 0.5 * (y[-1] - y[0])
+    # zmid = 0.5 * (z[-1] - z[0])
     x0, y0, z0 = map2grid_3d(x, y, z, nx, ny, nz, xm, ym, zm)
     xm0 = xm
     ym0 = ym
@@ -183,16 +183,13 @@ def integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seglen, max_dist):
     points1 = [[x0, y0, z0]]
     def inside_bounds(xi, yi, zi):
         return (xi >= x[0] and xi <= x[-1]) and (yi >= y[0] and yi <= y[-1]) and (zi >= z[0] and zi <= z[-1])
-    def notFar(point):
-        xA, yA, zA = point
-        return np.sqrt((xA - xmid)**2 + (yA - ymid)**2 + (zA - zmid)**2) < max_dist
     # integrate forward
     counter = 0
     while (gmap[zm][ym][xm] == 0 and counter < 4000): # max number of iterations is set to 4000
         x0 = x1
         y0 = y1
         z0 = z1
-        if not notFar((x0, y0, z0)):
+        if not region((x0, y0, z0)):
             break
         u0 = u[int(z1)][int(y1)][int(x1)]
         v0 = v[int(z1)][int(y1)][int(x1)]
@@ -238,7 +235,7 @@ def integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seglen, max_dist):
         x0 = x1
         y0 = y1
         z0 = z1
-        if not notFar((x0, y0, z0)):
+        if not region((x0, y0, z0)):
             break
         x0 = x1
         y0 = y1

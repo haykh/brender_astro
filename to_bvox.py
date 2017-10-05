@@ -2,7 +2,13 @@ import h5py
 import numpy as np
 import os, errno
 
-def makeBvox(out_path, fname, valueFunc, normalizeFunc, max_val = 1., prefix = 'dens'):
+def defaultNormalizeFunc(value):
+    return value
+
+def defaultValueFunc(data):
+    return data['dens'].value
+
+def makeBvox(out_path, fname, valueFunc = defaultValueFunc, normalizeFunc = defaultNormalizeFunc, max_val = 1., prefix = 'dens'):
     data = h5py.File(fname, 'r')
     z = valueFunc(data)
     z = np.array(z)

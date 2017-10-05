@@ -1,5 +1,9 @@
 import bpy
 
+def importFieldlines(out_path):
+    import numpy as np
+    return np.load(out_path + '.npy')
+
 def sceneHasCamera():
     for sc_obj in bpy.context.scene.objects:
         if 'Camera' in sc_obj.name:
@@ -198,17 +202,17 @@ def delete_object(name, scene_name = 'Scene'):
     deselect_all()
     bpy.data.objects[name].select = True
     bpy.context.scene.objects.active = bpy.data.objects[name]
-    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY':
+    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY' and bpy.data.objects[name].type != 'CAMERA':
         # delete assosiated materials first
         delete_unused_materials(name)
         # delete associated textures
         delete_unused_textures(name)
     # now, delete object
-    # have to do it this way to actually remove it from memeroy
+    # have to do it this way to actually remove it from memory
     me = bpy.data.objects[name].data
     if me:
         me.user_clear()
-    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY':
+    if bpy.data.objects[name].type != 'LAMP' and bpy.data.objects[name].type != 'EMPTY' and bpy.data.objects[name].type != 'CAMERA':
         bpy.data.meshes.remove(me)
     else:
         bpy.data.objects.remove(bpy.data.objects[name])

@@ -119,61 +119,7 @@ def createNetronStar(name, size, loc = (0, 0, 0), color = (0, 0.16, 0.7)):
     setMaterial(bpy.data.objects[name], mat)
     return sphere
 
-def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 100, max_dist = 120, min_seglen = 100., seg_step = 0.2):
-    import h5py
-    import numpy as np
-    key_1, key_2, key_3 = keys
-
-    data = h5py.File(fpath, 'r')
-    u = np.array(data[key_1].value)
-    v = np.array(data[key_2].value)
-    w = np.array(data[key_3].value)
-
-    maxUVW = np.sqrt(u**2 + v**2 + w**2).max()
-    u /= maxUVW
-    v /= maxUVW
-    w /= maxUVW
-
-    size_x = len(u[0][0])
-    size_y = len(u[0])
-    size_z = len(u)
-    x = range(size_x)
-    y = range(size_y)
-    z = range(size_z)
-    x = np.array(x)
-    y = np.array(y)
-    z = np.array(z)
-
-    from find_flow import _gen_starting_points_3d, next_greater_power_of_2, grid2map_3d, map2grid_3d, integrate_3d
-
-    n_cells_x = int(30 * density)
-    n_cells_y = int(30 * density)
-    n_cells_z = int(30 * density)
-    nx_2 = next_greater_power_of_2(n_cells_x)
-    ny_2 = next_greater_power_of_2(n_cells_y)
-    nz_2 = next_greater_power_of_2(n_cells_z)
-    n_cells_x = 2**nx_2
-    n_cells_y = 2**ny_2
-    n_cells_z = 2**nz_2
-    gmap = np.zeros((n_cells_z, n_cells_y, n_cells_x))
-    # print n_cells_x, n_cells_y, n_cells_z
-
-    trajectories = []
-    for xm, ym, zm in _gen_starting_points_3d((nx_2, ny_2, nz_2)):
-        if gmap[zm][ym][xm] == 0:
-            t = integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seg_step, max_dist)
-            if (t is not None) and (len(t) > min_seglen / seg_step):
-                for i in range(len(t)):
-                    t[i] /= np.array([size_x, size_y, size_z])
-                    t[i] -= np.array(0.5)
-                    t[i] *= np.array(2)
-                trajectories.append(t)
-    import random as rnd
-    if len(trajectories) > n_traj:
-        trajectories = np.random.choice(trajectories, n_traj)
-    return trajectories
-
-def createFieldlines(name, trajectories, intens = 1., col = (1, 1, 1)):
+def createFieldlines(name, trajectories, intens = 1., color = (1, 1, 1), scale = 1., shape = (2, 2, 2)):
     import numpy as np
     curveData = bpy.data.curves.new('crv_' + name, type='CURVE')
     print("Curve was created.")
@@ -182,34 +128,31 @@ def createFieldlines(name, trajectories, intens = 1., col = (1, 1, 1)):
     curveData.resolution_u = 2
     curveData.fill_mode = 'FULL'
     curveData.bevel_resolution = 10
+    xc, yc, zc = np.array(shape) * 0.5
     for coords in trajectories:
         # map coords to spline
         polyline = curveData.splines.new('POLY')
         polyline.points.add(len(coords) - 1)
         for i, coord in enumerate(coords):
             x,y,z = (np.array(coord))
-            polyline.points[i].co = (x, y, z, 1)
-
+            polyline.points[i].co = (x * scale - xc, y * scale - yc, z * scale - zc, 1)
     # create Object
     curveOB = bpy.data.objects.new('crv_ob_' + name, curveData)
     print("Curve object was created.")
     print("\tname: " + 'crv_' + name)
     curveData.bevel_depth = 0.001
-
     # attach to scene and validate context
     scn = bpy.context.scene
     scn.objects.link(curveOB)
     scn.objects.active = curveOB
-
     mat = bpy.data.materials.new('crv_' + name)
     print("Material was created.")
     print("\tname: " + 'crv_' + name)
     mat.specular_intensity = 0
     mat.diffuse_intensity = 0
     mat.emit = intens
-    mat.diffuse_color = col
+    mat.diffuse_color = color
     mat.use_shadows = False
     mat.use_cast_shadows = False
     setMaterial(curveOB, mat)
-
     return curveOB
