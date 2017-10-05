@@ -8,12 +8,13 @@ def defaultNormalizeFunc(value):
 def defaultValueFunc(data):
     return data['dens'].value
 
-def makeBvox(out_path, fname, valueFunc = defaultValueFunc, normalizeFunc = defaultNormalizeFunc, max_val = 1., prefix = 'dens'):
+def makeBvox(out_path, fname, valueFunc = defaultValueFunc, normalizeFunc = defaultNormalizeFunc, min_val = 0., max_val = 1., prefix = 'dens'):
     data = h5py.File(fname, 'r')
     z = valueFunc(data)
     z = np.array(z)
     z /= z.max()
     z = normalizeFunc(z)
+    z[z < min_val] = min_val
     z[z > max_val] = max_val
 
     try:
