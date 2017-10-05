@@ -2,7 +2,7 @@ import bpy
 
 def importFieldlines(out_path):
     import pickle
-    pkl_file = open(out_pat + '.pkl', 'rb')
+    pkl_file = open(out_path + '.pkl', 'rb')
     data1 = pickle.load(pkl_file)
     pkl_file.close()
     return data1

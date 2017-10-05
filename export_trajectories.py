@@ -60,4 +60,4 @@ def exportFieldlines(trajectories, out_path):
     pickle.dump(my_data, output)
     output.close()
     print('trajectories saved here:')
-    print('\t' + out_path)
+    print('\t' + out_path + '.pkl')
