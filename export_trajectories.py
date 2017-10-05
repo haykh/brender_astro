@@ -53,6 +53,11 @@ def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 
     return trajectories
 
 def exportFieldlines(trajectories, out_path):
-    np.save(out_path, trajectories)
+    # np.save(out_path, trajectories)
+    import pickle
+    my_data = {'traj': trajectories}
+    output = open(out_path + '.pkl', 'wb')
+    pickle.dump(my_data, output)
+    output.close()
     print('trajectories saved here:')
     print('\t' + out_path)

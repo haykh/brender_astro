@@ -1,8 +1,13 @@
 import bpy
 
 def importFieldlines(out_path):
-    import numpy as np
-    return np.load(out_path + '.npy')
+    import pickle
+    pkl_file = open(out_pat + '.pkl', 'rb')
+    data1 = pickle.load(pkl_file)
+    pkl_file.close()
+    return data1
+    # import numpy as np
+    # return np.load(out_path + '.npy')
 
 def sceneHasCamera():
     for sc_obj in bpy.context.scene.objects:
