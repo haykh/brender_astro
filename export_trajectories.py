@@ -54,4 +54,5 @@ def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 
 
 def exportFieldlines(trajectories, out_path):
     np.save(out_path, trajectories)
-    print('trajectories saved to:', out_path)
+    print('trajectories saved here:')
+    print('\t' + out_path)
