@@ -416,7 +416,7 @@ class FieldLines(object):
         curveData.fill_mode = 'FULL'
         curveData.bevel_resolution = 10
         import numpy as np
-        xc, yc, zc = np.array(shape) * 0.5 + location
+        xc, yc, zc = np.array(size) * 0.5 + location
         for coords in fieldlines:
             # map coords to spline
             polyline = curveData.splines.new('POLY')
