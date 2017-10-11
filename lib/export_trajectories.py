@@ -60,8 +60,7 @@ def generateFieldlines(fpath,
 def exportFieldlines(trajectories, out_path):
     f = open(out_path, 'w')
     for line in trajectories:
-        f.write(len(line))
-        f.write('\n')
+        f.write('{}\n'.format(len(line)))
         for coords in line:
             x,y,z = coords
             f.write('{} {} {}\n'.format(x, y, z))
