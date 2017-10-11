@@ -1,5 +1,5 @@
 import bpy
-from brender_aux import deselect_all
+from lib.hlp_func import deselect_all
 from math import sqrt
 
 class Lighting(object):

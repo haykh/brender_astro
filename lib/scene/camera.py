@@ -1,6 +1,6 @@
 import bpy
 from math import pi
-from brender_aux import deselect_all
+from lib.hlp_func import deselect_all
 
 class Camera(object):
     # initialize the camera with an empty for pointing
@@ -26,8 +26,6 @@ class Camera(object):
         bpy.ops.object.empty_add(type='SPHERE')
         # set location to 0,0,0 for starts
         esph = bpy.data.objects['Empty']
-        print('Empty object created')
-        print('\tname:', 'Empty' + cam_name)
         # change name for cam empty incase we want to parent other things
         esph.name = 'Empty'+cam_name
         esph.location = [0, 0, 0]
