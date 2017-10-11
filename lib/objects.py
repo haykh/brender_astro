@@ -403,9 +403,9 @@ class ParticlePlot(object):
 class FieldLines(object):
     def __init__(self,
                  fieldlines,
-                 name="NoNameFieldlines",
                  size,
                  scale,
+                 name="NoNameFieldlines",
                  color = (1, 1, 1),
                  location = (0, 0, 0),
                  intensity = 1.):
