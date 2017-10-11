@@ -404,10 +404,10 @@ class FieldLines(object):
     def __init__(self,
                  fieldlines,
                  name="NoNameFieldlines",
+                 size,
+                 scale,
                  color = (1, 1, 1),
-                 scale = 1.,
                  location = (0, 0, 0),
-                 size = (2, 2, 2),
                  intensity = 1.):
         deselect_all()
         curveData = bpy.data.curves.new(name, type='CURVE')
@@ -415,6 +415,7 @@ class FieldLines(object):
         curveData.resolution_u = 2
         curveData.fill_mode = 'FULL'
         curveData.bevel_resolution = 10
+        import numpy as np
         xc, yc, zc = np.array(shape) * 0.5 + location
         for coords in fieldlines:
             # map coords to spline
