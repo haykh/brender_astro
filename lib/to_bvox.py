@@ -32,14 +32,8 @@ def makeBvox(out_path, fname,
     binfile = open(out_path + prefix + '.bvox','wb')
     header.astype('<i4').tofile(binfile)
     z.astype('<f4').tofile(binfile)
-
-    import sys
-    if sys.version_info[0] < 3:
-        print "bvox saved here:"
-        print "\t" + out_path + prefix + '.bvox'
-    else:
-        print ("bvox saved here:")
-        print ("\t" + out_path + prefix + '.bvox')
+    print ("bvox saved here:")
+    print ("\t" + out_path + prefix + '.bvox')
     return out_path + prefix + '.bvox'
 
 def getShape(fpath, key):

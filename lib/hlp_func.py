@@ -71,20 +71,12 @@ def getRightColor(color):
         if color[0] != '#':
             color = '#' + color
         if (len(color) != 4) and (len(color) != 7):
-            import sys
-            if sys.version_info[0] < 3:
-                print "Wrong color format. HEX or RGB supported only."
-            else:
-                print ("Wrong color format. HEX or RGB supported only.")
+            print ("Wrong color format. HEX or RGB supported only.")
             return
         color = hexToRgb(color)
     else:
         if len(color) != 3:
-            import sys
-            if sys.version_info[0] < 3:
-                print "Wrong color format. HEX or RGB supported only."
-            else:
-                print ("Wrong color format. HEX or RGB supported only.")
+            print ("Wrong color format. HEX or RGB supported only.")
             return
         if color[0] > 1:
             color[0] = color[0] / 255.

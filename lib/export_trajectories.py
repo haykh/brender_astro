@@ -65,10 +65,5 @@ def exportFieldlines(trajectories, out_path):
             x,y,z = coords
             f.write('{} {} {}\n'.format(x, y, z))
     f.close()
-    import sys
-    if sys.version_info[0] < 3:
-        print 'trajectories saved here:'
-        print '\t' + out_path
-    else:
-        print ('trajectories saved here:')
-        print ('\t' + out_path)
+    print ('trajectories saved here:')
+    print ('\t' + out_path)
