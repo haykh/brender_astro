@@ -123,6 +123,22 @@ def deselect_all():
 
 # # # # # # # # # # # # # # # # # #
 #   Working with data
-# def importFieldlines(out_file):
-    # return np.load(out_path + '.npy', encoding = 'utf8')
+def importFieldlines(out_file):
+    import numpy as np
+    lines = open(out_file).read().splitlines()
+    fieldlines = []
+    fieldline = None
+    for line in lines:
+        tup = tuple(map(float, line.split(' ')))
+        if len(tup) == 1:
+            if fieldline is not None:
+                fieldlines.append(fieldline)
+            fieldline = []
+        elif len(tup) == 3:
+            x,y,z = tup
+            fieldline.append([x,y,z])
+        else:
+            raise 'Reading error'
+    fieldlines.append(fieldline)
+    return fieldlines
 # # # # # # # # # # # # # # # # # #
