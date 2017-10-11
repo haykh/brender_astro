@@ -4,7 +4,13 @@ import numpy as np
 def defaultRegionFunc(point):
     return True
 
-def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 100, region = defaultRegionFunc, min_seglen = 100., seg_step = 0.2):
+def generateFieldlines(fpath,
+                       density = 1.,
+                       keys = ('bx', 'by', 'bz'),
+                       n_traj = 100,
+                       region = defaultRegionFunc,
+                       min_seglen = 100.,
+                       seg_step = 0.2):
     key_1, key_2, key_3 = keys
 
     data = h5py.File(fpath, 'r')
@@ -39,7 +45,6 @@ def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 
     n_cells_y = 2**ny_2
     n_cells_z = 2**nz_2
     gmap = np.zeros((n_cells_z, n_cells_y, n_cells_x))
-    # print n_cells_x, n_cells_y, n_cells_z
 
     trajectories = []
     for xm, ym, zm in _gen_starting_points_3d((nx_2, ny_2, nz_2)):
@@ -53,9 +58,18 @@ def generateFieldlines(fpath, density = 1., keys = ('bx', 'by', 'bz'), n_traj = 
     return trajectories
 
 def exportFieldlines(trajectories, out_path):
+    f = open(out_path, 'w')
+    for line in trajectories:
+        f.write(len(line))
+        f.write('\n')
+        for coords in line:
+            x,y,z = coords
+            f.write('{} {} {}\n'.format(x, y, z))
+    f.close()
     import sys
-    reload(sys)
-    sys.setdefaultencoding('utf8')
-    np.save(out_path, trajectories)
-    print('trajectories saved here:')
-    print('\t' + out_path)
+    if sys.version_info[0] < 3:
+        print 'trajectories saved here:'
+        print '\t' + out_path
+    else:
+        print('trajectories saved here:')
+        print('\t' + out_path)

@@ -71,12 +71,20 @@ def getRightColor(color):
         if color[0] != '#':
             color = '#' + color
         if (len(color) != 4) and (len(color) != 7):
-            print("Wrong color format. HEX or RGB supported only.")
+            import sys
+            if sys.version_info[0] < 3:
+                print "Wrong color format. HEX or RGB supported only."
+            else:
+                print("Wrong color format. HEX or RGB supported only.")
             return
         color = hexToRgb(color)
     else:
         if len(color) != 3:
-            print("Wrong color format. HEX or RGB supported only.")
+            import sys
+            if sys.version_info[0] < 3:
+                print "Wrong color format. HEX or RGB supported only."
+            else:
+                print("Wrong color format. HEX or RGB supported only.")
             return
         if color[0] > 1:
             color[0] = color[0] / 255.
@@ -115,7 +123,6 @@ def deselect_all():
 
 # # # # # # # # # # # # # # # # # #
 #   Working with data
-def importFieldlines(out_path):
-    import numpy as np
-    return np.load(out_path + '.npy')
+# def importFieldlines(out_file):
+    # return np.load(out_path + '.npy', encoding = 'utf8')
 # # # # # # # # # # # # # # # # # #

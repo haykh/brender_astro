@@ -30,6 +30,12 @@ def makeParticles(out_path, fname, shape, n_particles):
     for j in ies:
         data.append([xs_i[j], ys_i[j], zs_i[j], 1])
     np.savetxt(out_path + "particles.dat", data, delimiter=' ', fmt="%s")
-    print("Particles written here:")
-    print("\t" + out_path + "particles.dat")
+
+    import sys
+    if sys.version_info[0] < 3:
+        print "Particles written here:"
+        print "\t" + out_path + "particles.dat"
+    else:
+        print("Particles written here:")
+        print("\t" + out_path + "particles.dat")
     return out_path + "particles.dat"

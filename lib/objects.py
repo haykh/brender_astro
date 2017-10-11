@@ -22,8 +22,6 @@ class BoundingBox(object):
         b_mat.emit = intensity
         b_mat.diffuse_color = getRightColor(color)
         setMaterial(cube, b_mat)
-        print("Cube was created.")
-        print("\tname: " + name)
         self.__name = name
         self.__intensity = intensity
         self.__color = getRightColor(color)
@@ -439,8 +437,6 @@ class FieldLines(object):
         mat.use_shadows = False
         mat.use_cast_shadows = False
         setMaterial(curveOB, mat)
-        print("Cube was created.")
-        print("\tname: " + name)
         self.__name = name
         self.__intensity = intensity
         self.__color = getRightColor(color)
