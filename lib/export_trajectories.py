@@ -70,5 +70,5 @@ def exportFieldlines(trajectories, out_path):
         print 'trajectories saved here:'
         print '\t' + out_path
     else:
-        print('trajectories saved here:')
-        print('\t' + out_path)
+        print ('trajectories saved here:')
+        print ('\t' + out_path)

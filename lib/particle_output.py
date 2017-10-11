@@ -36,6 +36,6 @@ def makeParticles(out_path, fname, shape, n_particles):
         print "Particles written here:"
         print "\t" + out_path + "particles.dat"
     else:
-        print("Particles written here:")
-        print("\t" + out_path + "particles.dat")
+        print ("Particles written here:")
+        print ("\t" + out_path + "particles.dat")
     return out_path + "particles.dat"

@@ -38,8 +38,8 @@ def makeBvox(out_path, fname,
         print "bvox saved here:"
         print "\t" + out_path + prefix + '.bvox'
     else:
-        print("bvox saved here:")
-        print("\t" + out_path + prefix + '.bvox')
+        print ("bvox saved here:")
+        print ("\t" + out_path + prefix + '.bvox')
     return out_path + prefix + '.bvox'
 
 def getShape(fpath, key):

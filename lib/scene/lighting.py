@@ -65,7 +65,7 @@ class Lighting(object):
         if self.__name is not 'Emission':
             self.__location = bpy.data.objects[self.__name].location
         else:
-            print('No location for Emission')
+            print ('No location for Emission')
         return self.__location
 
     @location.setter
