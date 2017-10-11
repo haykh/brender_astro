@@ -36,7 +36,7 @@ def objectsHaveCamera():
     return None
 
 def initializeCamera():
-    from scene.camera import Camera
+    from lib.scene.camera import Camera
     if not sceneHasCamera(): # scene has no camera
         if objectsHaveCamera() is None:
             if len(bpy.data.cameras) > 0:
