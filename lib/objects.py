@@ -198,7 +198,7 @@ class VolumePlot(object):
             matTex.color_ramp.elements.new(position = 0.0)
         for i in range(len(cmap)):
             matTex.color_ramp.elements[i].position = cmap[i][0]
-            matTex.color_ramp.elements[i].color = getRightColor(cmap[i][1])
+            matTex.color_ramp.elements[i].color = cmap[i][1]
 
         setMaterial(box, mat)
         self.__name = name
@@ -238,7 +238,7 @@ class VolumePlot(object):
             ramp_elems.new(position = 0.0)
         for i in range(len(cmap)):
             ramp_elems[i].position = cmap[i][0]
-            ramp_elems[i].color = getRightColor(cmap[i][1])
+            ramp_elems[i].color = cmap[i][1]
         self.__cmap = cmap
     @property
     def size(self):
