@@ -166,7 +166,10 @@ def integrate_2d(xm, ym, x, y, u, v, gmap, seglen):
             break
     return points
 
-def integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seglen, region):
+def integrate_3d(xm, ym, zm,
+                 x, y, z,
+                 u, v, w,
+                 gmap, seglen, region):
     nx = len(gmap[0][0])
     ny = len(gmap[0])
     nz = len(gmap)

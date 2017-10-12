@@ -49,7 +49,10 @@ def generateFieldlines(fpath,
     trajectories = []
     for xm, ym, zm in _gen_starting_points_3d((nx_2, ny_2, nz_2)):
         if gmap[zm][ym][xm] == 0:
-            t = integrate_3d(xm, ym, zm, x, y, z, u, v, w, gmap, seg_step, region)
+            t = integrate_3d(xm, ym, zm,
+                             x, y, z,
+                             u, v, w,
+                             gmap, seg_step, region)
             if (t is not None) and (len(t) > min_seglen / seg_step):
                 trajectories.append(t)
     import random as rnd

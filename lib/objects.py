@@ -463,7 +463,7 @@ class FieldLines(object):
         self.__color = getRightColor(color)
     @property
     def intensity(self):
-        return self.__color
+        return self.__intensity
     @intensity.setter
     def intensity(self, intensity):
         mat = bpy.data.materials[self.__name]
