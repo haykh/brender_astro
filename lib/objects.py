@@ -29,6 +29,7 @@ class BoundingBox(object):
         self.__location = location
     @property
     def name(self):
+        """str: Name of the BoundingBox object."""
         return self.__name
     @name.setter
     def name(self, name):
@@ -41,6 +42,7 @@ class BoundingBox(object):
         self.__name = name
     @property
     def color(self):
+        """tuple: Diffuse color of the BoundingBox."""
         return self.__color
     @color.setter
     def color(self, color):
@@ -49,6 +51,7 @@ class BoundingBox(object):
         self.__color = getRightColor(color)
     @property
     def size(self):
+        """tuple: Shape of the BoundingBox."""
         return self.__size
     @size.setter
     def size(self, size):
@@ -57,6 +60,7 @@ class BoundingBox(object):
         self.__size = size
     @property
     def location(self):
+        """tuple: Center location of the BoundingBox."""
         return self.__location
     @location.setter
     def location(self,location):
@@ -65,7 +69,8 @@ class BoundingBox(object):
         self.__location = location
     @property
     def intensity(self):
-        return self.__color
+        """float: Color intensity of the BoundingBox."""
+        return self.__emit
     @intensity.setter
     def intensity(self, intensity):
         b_mat = bpy.data.materials[self.__name]
@@ -169,7 +174,7 @@ class VolumePlot(object):
         mat.volume.density_scale = 2.
         mat.volume.emission = 0.
         mat.volume.scattering = 1.4
-        mat.volume.step_method = 'CONSTANT'
+        mat.volume.step_method = 'RANDOMIZED'
         mat.volume.step_size = 0.01
 
         matSlot = mat.texture_slots.add()

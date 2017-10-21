@@ -1,0 +1,3 @@
+.. _bbox_obj:
+
+.. autoclass:: objects.BoundingBox

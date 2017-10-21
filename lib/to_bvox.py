@@ -17,8 +17,8 @@ def makeBvox(out_path, fname,
     data = h5py.File(fname, 'r')
     z = valueFunc(data)
     z = np.array(z)
-    z /= z.max()
     z = normalizeFunc(z)
+    z /= z.max()
     z[z < min_val] = min_val
     z[z > max_val] = max_val
 

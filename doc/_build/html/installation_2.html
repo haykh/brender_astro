@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation for tigressdata users &mdash; BRender 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="BRender 1.0 documentation" href="index.html"/>
+        <link rel="up" title="Getting things ready" href="installation.html"/>
+        <link rel="next" title="Basics of BRender" href="brender_basics.html"/>
+        <link rel="prev" title="Installation for Mac users" href="installation_1.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> BRender
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="installation.html">Getting things ready</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation_1.html">Installation for Mac users</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation for tigressdata users</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#easy-way">Easy way</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#difficult-way">Difficult way</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#blender-setup">Blender setup</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="brender_basics.html">Basics of BRender</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">BRender</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="installation.html">Getting things ready</a> &raquo;</li>
+        
+      <li>Installation for tigressdata users</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation_2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-for-tigressdata-users">
+<h1>Installation for tigressdata users<a class="headerlink" href="#installation-for-tigressdata-users" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>For tigressdata cluster machines you can go in two different ways.</p>
+<ul class="simple">
+<li><a class="reference internal" href="#id1">Easy way</a>: you make an alias to run an already configured Blender from my <code class="docutils literal"><span class="pre">hakobyan</span></code> directory.</li>
+<li><a class="reference internal" href="#difficult-way">Difficult way</a>: you download and set everything up yourself.</li>
+</ul>
+<div class="section" id="easy-way">
+<span id="id1"></span><h3>Easy way<a class="headerlink" href="#easy-way" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure you have pre-loaded module <code class="docutils literal"><span class="pre">virtualgl</span></code>. Check this by doing <code class="docutils literal"><span class="pre">$</span> <span class="pre">module</span> <span class="pre">list</span></code>. To load it you can do <code class="docutils literal"><span class="pre">$</span> <span class="pre">module</span> <span class="pre">load</span> <span class="pre">virtualgl/2.3.3</span></code>.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Open your bash profile by doing:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ gedit ~/.bashrc
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add the following alias to the end of the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">blender</span><span class="o">=</span><span class="s2">&quot;vglrun /home/hakobyan/Downloads/Blender/blender -P /home/hakobyan/Downloads/brender_astro/initialize_blender/init_script.py&quot;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>You&#8217;re all set. Now by running <code class="docutils literal"><span class="pre">blender</span></code> from the command line you&#8217;ll get a Blender app with preloaded BRender module. You might also want to set up a default scene, check <a class="reference internal" href="#setuptig"><span class="std std-ref">instructions here</span></a>.</p>
+</div>
+<div class="section" id="difficult-way">
+<h3>Difficult way<a class="headerlink" href="#difficult-way" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="clone-brender-repo">
+<h4>Clone BRender repo<a class="headerlink" href="#clone-brender-repo" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>Go to any desired directory of your choice.</li>
+<li>Do <code class="docutils literal"><span class="pre">$</span> <span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/haykh/brender_astro.git</span></code> to clone the repo.</li>
+<li>The library and all the necessary files will be downloaded to the current directory.</li>
+</ol>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">We&#8217;ll next download the Blender app. This requires several hundreds MB of disk space, so be prepared.</p>
+</div>
+</div>
+<div class="section" id="installing-and-configuring-blender">
+<h4>Installing and configuring Blender<a class="headerlink" href="#installing-and-configuring-blender" title="Permalink to this headline">¶</a></h4>
+<ol class="arabic simple">
+<li>Download Blender 2.76 from <a class="reference external" href="http://download.blender.org/release/Blender2.76/blender-2.76-linux-glibc211-x86_64.tar.bz2">here</a>.</li>
+<li>Extract the archive.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We then need to adjust some of the Blender import/export files. You can do it manually following steps 3-6, or you can simply download the already fixed files and replace the original ones (see step 7).</p>
+</div>
+<ol class="arabic" start="3">
+<li><p class="first">Navigate to the following folder:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /path-to-blender-installation/2.76/scripts/addons/io_scene_obj/
+</pre></div>
+</div>
+</li>
+<li><p class="first">Open <code class="docutils literal"><span class="pre">import_obj.py</span></code> and add these two lines:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="k">elif</span> <span class="n">line_id</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;tf&#39;</span><span class="p">:</span>
+    <span class="c1"># rgb, filter color, blender has no support for this.</span>
+    <span class="k">pass</span>
+<span class="k">elif</span> <span class="n">line_id</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;em&#39;</span><span class="p">:</span> <span class="c1"># ADD THIS LINE (BRender)</span>
+    <span class="n">context_material</span><span class="o">.</span><span class="n">emit</span> <span class="o">=</span> <span class="n">float_func</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># ADD THIS LINE (BRender)</span>
+<span class="k">elif</span> <span class="n">line_id</span> <span class="o">==</span> <span class="sa">b</span><span class="s1">&#39;illum&#39;</span><span class="p">:</span>
+    <span class="n">illum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line_split</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">In the same file comment out the following line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+<span class="k">if</span> <span class="n">emit_value</span> <span class="o">&gt;</span> <span class="mf">1e-6</span><span class="p">:</span>
+    <span class="c1"># We have to adapt it to diffuse color too...</span>
+    <span class="n">emit_value</span> <span class="o">/=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">context_material</span><span class="o">.</span><span class="n">diffuse_color</span><span class="p">)</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="c1"># context_material.emit = emit_value # &lt;- COMMENT THIS LINE OUT (BRender)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">do_ambient</span><span class="p">:</span>
+    <span class="n">context_material</span><span class="o">.</span><span class="n">ambient</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Save the file and open <code class="docutils literal"><span class="pre">export_obj.py</span></code>. Add this line and save the file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># ...</span>
+    <span class="k">elif</span> <span class="n">mat</span><span class="o">.</span><span class="n">use_transparency</span> <span class="ow">and</span> <span class="n">mat</span><span class="o">.</span><span class="n">transparency_method</span> <span class="o">==</span> <span class="s1">&#39;RAYTRACE&#39;</span><span class="p">:</span>
+            <span class="n">fw</span><span class="p">(</span><span class="s1">&#39;illum 9</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># &#39;Glass&#39; transparency and no Ray trace reflection... fuzzy matching, but...</span>
+    <span class="k">else</span><span class="p">:</span>
+            <span class="n">fw</span><span class="p">(</span><span class="s1">&#39;illum 2</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>  <span class="c1"># light normaly</span>
+    <span class="n">fw</span><span class="p">(</span><span class="s1">&#39;em </span><span class="si">%.6f</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">mat</span><span class="o">.</span><span class="n">emit</span><span class="p">)</span> <span class="c1"># ADD THIS LINE (BRender)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Write a dummy material here?</span>
+<span class="c1"># ...</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">For the sake of convenience, I <a class="reference external" href="https://github.com/haykh/brender_astro/tree/master/blender_files/2.76_tigressdata">added</a> those two <code class="docutils literal"><span class="pre">.py</span></code> files for Blender 2.76, so you can just download and replace the original ones which are in here <code class="docutils literal"><span class="pre">/path-to-blender-installation/2.76/scripts/addons/io_scene_obj/</span></code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="section" id="blender-setup">
+<span id="setuptig"></span><h2>Blender setup<a class="headerlink" href="#blender-setup" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you followed the &#8220;Easy Way&#8221; in the <a class="reference internal" href="#easy-way"><span class="std std-ref">installation section</span></a> proceed to step 6.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">If you haven&#8217;t cloned this repo yet, it&#8217;s time to do it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /any-folder-you-like/
+$ git clone https://github.com/haykh/brender_astro.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Then navigate to <code class="docutils literal"><span class="pre">initialize_blender/</span></code> inside the cloned repository and open <code class="docutils literal"><span class="pre">init_script.py</span></code>.</p>
+</li>
+<li><p class="first">Modify the path in the 2-nd line writing the correct path to the downloaded repo.</p>
+</li>
+<li><p class="first">Open <cite>bash_profile</cite> with <code class="docutils literal"><span class="pre">$</span> <span class="pre">gedit</span> <span class="pre">~/.bashrc</span></code> and add the following line with a correct path to the downloaded repo and blender:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">alias</span> <span class="n">blender</span><span class="o">=</span><span class="s1">&#39;vglrun /path-to-blender/blender -P /path-to-brender/initialize_blender/init_script.py&#39;</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure you have pre-loaded module <code class="docutils literal"><span class="pre">virtualgl</span></code>. Check this by doing <code class="docutils literal"><span class="pre">$</span> <span class="pre">module</span> <span class="pre">list</span></code>. To load it you can do <code class="docutils literal"><span class="pre">$</span> <span class="pre">module</span> <span class="pre">load</span> <span class="pre">virtualgl/2.3.3</span></code>.</p>
+</div>
+<ol class="arabic simple" start="5">
+<li>Restart the terminal. Now every time we do <code class="docutils literal"><span class="pre">$</span> <span class="pre">blender</span></code> in the terminal, the Blender app will launch pre-running the <code class="docutils literal"><span class="pre">init_script.py</span></code>, which imports the module and does a quick setup of lighting.</li>
+<li>From cloned BRender repo (or from <a class="reference external" href="https://github.com/haykh/brender_astro/tree/master/initialize_blender/tigressdata">here</a>) copy <code class="docutils literal"><span class="pre">initialize_blender/tigressdata/startup.blend</span></code> file to <code class="docutils literal"><span class="pre">/home/&lt;username&gt;/.config/blender/2.76/config/</span></code> (if the folder doesn&#8217;t exist, create it). This will set a default working screen that (for me) fits the best for script-based visualization.</li>
+</ol>
+<p>Now once you run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ blender
+</pre></div>
+</div>
+<p>from the terminal, you should see the following Blender window.</p>
+<div class="figure align-center">
+<img alt="_images/img_3.png" src="_images/img_3.png" />
+</div>
+<ul class="simple">
+<li>(<em>top left</em>) 3D viewport with all the objects of our scene</li>
+<li>(<em>top right</em>) rendered image will be displayed here, which is now just empty</li>
+<li>(<em>right</em>) <code class="docutils literal"><span class="pre">Properties</span></code> tab with all the material and object properties</li>
+<li>(<em>bottom</em>) python console that uses Blender&#8217;s bundled Python 3 (most of the time we&#8217;ll be using this console)</li>
+</ul>
+<ol class="arabic simple" start="7">
+<li>You can also configure your own workspace layout (consoles, 3d viewports etc) and save it as default by doing <code class="docutils literal"><span class="pre">Ctrl+U</span></code>.</li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="brender_basics.html" class="btn btn-neutral float-right" title="Basics of BRender" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation_1.html" class="btn btn-neutral" title="Installation for Mac users" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Hayk Hakobyan.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
