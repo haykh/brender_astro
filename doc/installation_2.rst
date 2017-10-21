@@ -56,7 +56,10 @@ Installing and configuring Blender
 
 	$ cd /path-to-blender-installation/2.76/scripts/addons/io_scene_obj/
 
-4. Open ``import_obj.py`` and add these two lines::
+4. Open ``import_obj.py`` and add these two lines:
+
+.. code-block:: python
+    :emphasize-lines: 5,6
 
     # ...
     elif line_id == b'tf':
@@ -68,7 +71,10 @@ Installing and configuring Blender
         illum = int(line_split[1])
     # ...
 
-5. In the same file comment out the following line::
+5. In the same file comment out the following line:
+
+.. code-block:: python
+    :emphasize-lines: 5
 
     # ...
     if emit_value > 1e-6:
@@ -80,6 +86,9 @@ Installing and configuring Blender
     # ...
 
 6. Save the file and open ``export_obj.py``. Add this line and save the file::
+
+.. code-block:: python
+    :emphasize-lines: 6
 
     # ...
     	elif mat.use_transparency and mat.transparency_method == 'RAYTRACE':

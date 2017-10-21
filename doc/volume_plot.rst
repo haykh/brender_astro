@@ -64,6 +64,8 @@ Ok, now with all those variables and functions specified, we are ready to output
                                 prefix = prefix)                            # optional
     # now bvoxfile is a string containing the path to the generated `.bvox` file in case you need it
 
+This might take some time, but you need to do this once to generate the ``.bvox`` file, later you can just refer to it with a full path to make plots.
+
 .. warning::
 
     For tigressdata you'll first need to append ``sys.path`` when working outside Blender (add this at the start of code)::
@@ -86,7 +88,7 @@ Since you'll later need a shape of your simulation and scaling factor for your v
     # make sure to do 'import lib.to_bvox as bvox' as you probably did above
     fname = '/path-to/flds.tot.001'
     shape0 = np.array(bvox.getShape(fname, 'dens'))
-    scale = 1 / (2.* shape0.min())
+    scale = 2. / shape0.min()
     shape = shape0 * scale
 
 Now ``shape`` is a tuple of 3 float numbers with the normalized ``(size-x, size-y, size-z)`` of your data, and ``scale`` is a float number that determines how much is the original data "squeezed". Again, tigressdata users can run this only outside Blender's python.
@@ -146,3 +148,216 @@ Below is a rendering result of such a plot.
 .. note::
 
     We can also enable the interactive viewport to look at the result from different angles on the fly (:ref:`see here <interactive>` on how to do this).
+
+Full python script
+====================
+
+for Mac
+---------
+
+.. code-block:: python
+
+    """Example code to run within Blender to produce the plot show above (Mac version)
+
+        Note: Make sure to change all the paths below
+
+    """
+
+    import brender as br
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   1. Preparing
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    # setting up the camera
+    cam = br.initializeCamera()
+    cam.location = (4.5, -1.2, 0.7)
+    cam.pointing = (0, 0, 0)
+
+    # setting up the renderer
+    render_directory = '/any-folder/images/'
+    render_name = 'mysim_'
+    render = br.Render(render_directory, render_name)
+
+    br.Render.set_resolution(1000, 1000)
+
+    import lib.to_bvox as bvox
+    import numpy as np
+
+    # finding the shape and scale of our simulation
+    fname = '/path-to/simulation-output'
+    shape0 = np.array(bvox.getShape(fname, 'dens'))
+    scale = 2. / (shape0.min())
+    shape = shape0 * scale
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   2. Generating .bvox file
+    #       if the .bvox already exists, just skip this step
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    out_path = '/any-folder/bvoxfile/'
+
+    prefix = 'current'
+
+    # we will be plotting the |j|*R^2 for pulsar simulation
+    def valueFunc(data):
+        sx = len(data['jx'].value[0][0])
+        sy = len(data['jx'].value[0])
+        sz = len(data['jx'].value)
+        halfx = np.floor(sx/2.)
+        halfy = np.floor(sy/2.)
+        halfz = np.floor(sz/2.)
+        rsquared = np.array([[[((x - halfx)**2 + (y - halfy)**2 + (z - halfz)**2)
+                                    for x in range(sx)]
+                                    for y in range(sy)]
+                                    for z in range(sz)])
+        return np.sqrt(np.array(data['jx'].value)**2 + np.array(data['jy'].value)**2 + np.array(data['jz'].value)**2) * rsquared
+
+    # in log units
+    def normalizeFunc(value):
+        return np.log(1. + value)
+
+    bvoxfile = bvox.makeBvox(out_path, fname,
+                            valueFunc = valueFunc,
+                            normalizeFunc = normalizeFunc,
+                            max_val = 0.1,
+                            prefix = prefix)
+
+    # now bvoxfile has the path to .bvox
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   3. Plotting
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    # generating the VolumePlot class object
+    density = br.VolumePlot(bvoxfile, name = 'my_current')
+
+    # adjusting shape, etc
+    density.size = shape
+    density.brightness = 1.1
+    density.contrast = 1.1
+    density.intensity = 10.
+    density.density = 3.
+
+    # making a bounding box
+    bbox = br.BoundingBox(name = 'shock_bbox')
+
+    # adjusting parameters
+    bbox.size = shape
+    bbox.color = '#36b3c4'
+    bbox.intensity = 0.2
+
+    # ...and finally rendering (or use Fn+F12)
+    render.render()
+    # image saved to the directory defined above
+
+for tigressdata
+-------------------
+
+outside Blender:
+
+.. code-block:: python
+
+    """Example code to run within Blender to produce the plot show above (tigressdata version)
+
+        Note: Make sure to change all the paths below
+        Note2: This is to be run outside Blender
+
+    """
+
+    import brender as br
+
+    fname = '/path-to/simulation-output'
+    shape0 = np.array(bvox.getShape(fname, 'dens'))
+    scale = 2. / (shape0.min())
+    shape = shape0 * scale
+
+    import sys
+    sys.path.append('/home/hakobyan/Downloads/brender_astro') # <-- change this
+    import lib.to_bvox as bvox
+    # you need to copy this parameters later
+    print (shape)
+    print (scale)
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   2. Generating .bvox file
+    #       if the .bvox already exists, just skip this step
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    out_path = '/any-folder/bvoxfile/'
+
+    prefix = 'current'
+
+    # we will be plotting the |j|*R^2 for pulsar simulation
+    def valueFunc(data):
+        sx = len(data['jx'].value[0][0])
+        sy = len(data['jx'].value[0])
+        sz = len(data['jx'].value)
+        halfx = np.floor(sx/2.)
+        halfy = np.floor(sy/2.)
+        halfz = np.floor(sz/2.)
+        rsquared = np.array([[[((x - halfx)**2 + (y - halfy)**2 + (z - halfz)**2)
+                                    for x in range(sx)]
+                                    for y in range(sy)]
+                                    for z in range(sz)])
+        return np.sqrt(np.array(data['jx'].value)**2 + np.array(data['jy'].value)**2 + np.array(data['jz'].value)**2) * rsquared
+
+    # in log units
+    def normalizeFunc(value):
+        return np.log(1. + value)
+
+    bvoxfile = bvox.makeBvox(out_path, fname,
+                            valueFunc = valueFunc,
+                            normalizeFunc = normalizeFunc,
+                            max_val = 0.1,
+                            prefix = prefix)
+
+    # now bvoxfile has the path to .bvox
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   3. Plotting
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    # generating the VolumePlot class object
+    density = br.VolumePlot(bvoxfile, name = 'my_current')
+
+    # adjusting shape, etc
+    density.size = shape
+    density.brightness = 1.1
+    density.contrast = 1.1
+    density.intensity = 10.
+    density.density = 3.
+
+    # making a bounding box
+    bbox = br.BoundingBox(name = 'shock_bbox')
+
+    # adjusting parameters
+    bbox.size = shape
+    bbox.color = '#36b3c4'
+    bbox.intensity = 0.2
+
+    # ...and finally rendering (or use Fn+F12)
+    render.render()
+    # image saved to the directory defined above
+
+..
+    import lib.to_bvox as bvox
+    import lib.particle_output as prt_out
+    import numpy as np
+
+    out_path = '/home/hakobyan/Downloads/outputs/bvox/'
+    fname = '/tigress/PERSEUS/hakobyan/temp/flds.tot.008'
+    prefix = 'dens'
+
+    bvoxfile = bvox.makeBvox(out_path, fname, prefix = 'dens')
+
+    shape0 = np.array(bvox.getShape(fname, 'dens'))
+    scale = 2. / (shape0.min())
+    shape = shape0 * scale
+    print list(shape)
+    print scale

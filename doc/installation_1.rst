@@ -30,7 +30,10 @@ Installing and configuring Blender
 where ``2.**`` is your Blender version, which in my case is ``2.79``.
 
 
-4. Open ``import_obj.py`` and add these two lines::
+4. Open ``import_obj.py`` and add these two lines:
+
+.. code-block:: python
+    :emphasize-lines: 5,6
 
     # ...
     elif line_id == b'tf':
@@ -43,7 +46,10 @@ where ``2.**`` is your Blender version, which in my case is ``2.79``.
     # ...
 
 
-5. In the same file comment out the following line::
+5. In the same file comment out the following line:
+
+.. code-block:: python
+    :emphasize-lines: 7
 
     # ...
     if emit_value > 1e-6:
@@ -56,7 +62,10 @@ where ``2.**`` is your Blender version, which in my case is ``2.79``.
     	context_material.ambient = 0.0
     # ...
 
-6. Save the file and open ``export_obj.py``. Add this line and save the file::
+6. Save the file and open ``export_obj.py``. Add this line and save the file:
+
+.. code-block:: python
+    :emphasize-lines: 6
 
     # ...
     	elif mat.use_transparency and mat.transparency_method == 'RAYTRACE':
