@@ -102,6 +102,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#full-python-script">Full python script</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#for-mac">for Mac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#for-tigressdata">for tigressdata</a></li>
 </ul>
 </li>
 </ul>
@@ -404,7 +405,126 @@
 <span class="n">density</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="mf">3.</span>
 
 <span class="c1"># making a bounding box</span>
-<span class="n">bbox</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;shock_bbox&#39;</span><span class="p">)</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bbox&#39;</span><span class="p">)</span>
+
+<span class="c1"># adjusting parameters</span>
+<span class="n">bbox</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">shape</span>
+<span class="n">bbox</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#36b3c4&#39;</span>
+<span class="n">bbox</span><span class="o">.</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+<span class="c1"># ...and finally rendering (or use Fn+F12)</span>
+<span class="n">render</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+<span class="c1"># image saved to the directory defined above</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="for-tigressdata">
+<h3>for tigressdata<a class="headerlink" href="#for-tigressdata" title="Permalink to this headline">¶</a></h3>
+<p>outside Blender:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Example code to run outside Blender (tigressdata version)</span>
+
+<span class="sd">    Note: Make sure to change all the paths below</span>
+<span class="sd">    Note2: This is to be run outside Blender</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">brender</span> <span class="kn">as</span> <span class="nn">br</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path-to-brender-repo&#39;</span><span class="p">)</span> <span class="c1"># &lt;-- you can use mine: &#39;/home/hakobyan/Downloads/brender_astro&#39;</span>
+<span class="kn">import</span> <span class="nn">lib.to_bvox</span> <span class="kn">as</span> <span class="nn">bvox</span>
+
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1">#</span>
+<span class="c1">#   1. Preparing</span>
+<span class="c1">#</span>
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/path-to/simulation-output&#39;</span>
+<span class="n">shape0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bvox</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;dens&#39;</span><span class="p">))</span>
+<span class="n">scale</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">shape0</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="n">shape0</span> <span class="o">*</span> <span class="n">scale</span>
+
+<span class="c1"># you need to copy this parameters later</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1">#</span>
+<span class="c1">#   2. Generating .bvox file</span>
+<span class="c1">#       if the .bvox already exists, just skip this step</span>
+<span class="c1">#</span>
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="n">out_path</span> <span class="o">=</span> <span class="s1">&#39;/any-folder/bvoxfile/&#39;</span>
+
+<span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;current&#39;</span>
+
+<span class="c1"># we will be plotting the |j|*R^2 for pulsar simulation</span>
+<span class="k">def</span> <span class="nf">valueFunc</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">sx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">sy</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">sz</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">halfx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sx</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">halfy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sy</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">halfz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">sz</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">rsquared</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[[((</span><span class="n">x</span> <span class="o">-</span> <span class="n">halfx</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">halfy</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">z</span> <span class="o">-</span> <span class="n">halfz</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+                                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sx</span><span class="p">)]</span>
+                                <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sy</span><span class="p">)]</span>
+                                <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sz</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jy&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;jz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">rsquared</span>
+
+<span class="c1"># in log units</span>
+<span class="k">def</span> <span class="nf">normalizeFunc</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.</span> <span class="o">+</span> <span class="n">value</span><span class="p">)</span>
+
+<span class="n">bvoxfile</span> <span class="o">=</span> <span class="n">bvox</span><span class="o">.</span><span class="n">makeBvox</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">fname</span><span class="p">,</span>
+                        <span class="n">valueFunc</span> <span class="o">=</span> <span class="n">valueFunc</span><span class="p">,</span>
+                        <span class="n">normalizeFunc</span> <span class="o">=</span> <span class="n">normalizeFunc</span><span class="p">,</span>
+                        <span class="n">max_val</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
+                        <span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>inside Blender:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Example code to run inside Blender (tigressdata version)</span>
+
+<span class="sd">    Note: Make sure to change all the paths below</span>
+<span class="sd">    Note2: This is to be run inside Blender, we do not refer to h5py here</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1">#</span>
+<span class="c1">#   1. Preparing</span>
+<span class="c1">#</span>
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1"># setting up the camera</span>
+<span class="n">cam</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">initializeCamera</span><span class="p">()</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+<span class="n">cam</span><span class="o">.</span><span class="n">pointing</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># setting up the renderer</span>
+<span class="n">render_directory</span> <span class="o">=</span> <span class="s1">&#39;/any-folder/images/&#39;</span>
+<span class="n">render_name</span> <span class="o">=</span> <span class="s1">&#39;mysim_&#39;</span>
+<span class="n">render</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">Render</span><span class="p">(</span><span class="n">render_directory</span><span class="p">,</span> <span class="n">render_name</span><span class="p">)</span>
+
+<span class="n">br</span><span class="o">.</span><span class="n">Render</span><span class="o">.</span><span class="n">set_resolution</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1">#</span>
+<span class="c1">#   2. Plotting</span>
+<span class="c1">#</span>
+<span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
+<span class="c1"># generating the VolumePlot class object</span>
+<span class="n">bvoxfile</span> <span class="o">=</span> <span class="s1">&#39;/path-to-saved/bvoxfile.bvox&#39;</span>
+<span class="n">density</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">VolumePlot</span><span class="p">(</span><span class="n">bvoxfile</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;my_current&#39;</span><span class="p">)</span>
+
+<span class="c1"># adjusting shape, etc</span>
+<span class="n">density</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="c1"># &lt;-- set by hands from the print output above</span>
+<span class="n">density</span><span class="o">.</span><span class="n">brightness</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">density</span><span class="o">.</span><span class="n">contrast</span> <span class="o">=</span> <span class="mf">1.1</span>
+<span class="n">density</span><span class="o">.</span><span class="n">intensity</span> <span class="o">=</span> <span class="mf">10.</span>
+<span class="n">density</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="mf">3.</span>
+
+<span class="c1"># making a bounding box</span>
+<span class="n">bbox</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">BoundingBox</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;bbox&#39;</span><span class="p">)</span>
 
 <span class="c1"># adjusting parameters</span>
 <span class="n">bbox</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">shape</span>

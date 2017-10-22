@@ -243,7 +243,7 @@ for Mac
     density.density = 3.
 
     # making a bounding box
-    bbox = br.BoundingBox(name = 'shock_bbox')
+    bbox = br.BoundingBox(name = 'bbox')
 
     # adjusting parameters
     bbox.size = shape
@@ -261,7 +261,7 @@ outside Blender:
 
 .. code-block:: python
 
-    """Example code to run within Blender to produce the plot show above (tigressdata version)
+    """Example code to run outside Blender (tigressdata version)
 
         Note: Make sure to change all the paths below
         Note2: This is to be run outside Blender
@@ -269,15 +269,20 @@ outside Blender:
     """
 
     import brender as br
+    import sys
+    sys.path.append('/path-to-brender-repo') # you can use mine: '/home/hakobyan/Downloads/brender_astro'
+    import lib.to_bvox as bvox
 
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   1. Preparing
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
     fname = '/path-to/simulation-output'
     shape0 = np.array(bvox.getShape(fname, 'dens'))
     scale = 2. / (shape0.min())
     shape = shape0 * scale
 
-    import sys
-    sys.path.append('/home/hakobyan/Downloads/brender_astro') # <-- change this
-    import lib.to_bvox as bvox
     # you need to copy this parameters later
     print (shape)
     print (scale)
@@ -316,25 +321,53 @@ outside Blender:
                             max_val = 0.1,
                             prefix = prefix)
 
-    # now bvoxfile has the path to .bvox
+
+inside Blender:
+
+.. code-block:: python
+
+    """Example code to run inside Blender (tigressdata version)
+
+        Note: Make sure to change all the paths below
+        Note2: This is to be run inside Blender, we do not refer to h5py here
+
+    """
 
     # # # # # # # # # # # # # # # # # # # # # # # #
     #
-    #   3. Plotting
+    #   1. Preparing
+    #
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    # setting up the camera
+    cam = br.initializeCamera()
+    cam.location = (4.5, -1.2, 0.7)
+    cam.pointing = (0, 0, 0)
+
+    # setting up the renderer
+    render_directory = '/any-folder/images/'
+    render_name = 'mysim_'
+    render = br.Render(render_directory, render_name)
+
+    br.Render.set_resolution(1000, 1000)
+
+    # # # # # # # # # # # # # # # # # # # # # # # #
+    #
+    #   2. Plotting
     #
     # # # # # # # # # # # # # # # # # # # # # # # #
     # generating the VolumePlot class object
+    bvoxfile = '/path-to-saved/bvoxfile.bvox'
     density = br.VolumePlot(bvoxfile, name = 'my_current')
 
     # adjusting shape, etc
-    density.size = shape
+    density.size = [...] # <-- set by hands from the print output above
     density.brightness = 1.1
     density.contrast = 1.1
     density.intensity = 10.
     density.density = 3.
 
     # making a bounding box
-    bbox = br.BoundingBox(name = 'shock_bbox')
+    bbox = br.BoundingBox(name = 'bbox')
 
     # adjusting parameters
     bbox.size = shape
@@ -344,20 +377,3 @@ outside Blender:
     # ...and finally rendering (or use Fn+F12)
     render.render()
     # image saved to the directory defined above
-
-..
-    import lib.to_bvox as bvox
-    import lib.particle_output as prt_out
-    import numpy as np
-
-    out_path = '/home/hakobyan/Downloads/outputs/bvox/'
-    fname = '/tigress/PERSEUS/hakobyan/temp/flds.tot.008'
-    prefix = 'dens'
-
-    bvoxfile = bvox.makeBvox(out_path, fname, prefix = 'dens')
-
-    shape0 = np.array(bvox.getShape(fname, 'dens'))
-    scale = 2. / (shape0.min())
-    shape = shape0 * scale
-    print list(shape)
-    print scale

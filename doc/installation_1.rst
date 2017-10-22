@@ -6,8 +6,11 @@ Installation
 
 Clone BRender repo
 ----------------------------
-1. Go to any desired directory of your choice.
-2. Do ``$ git clone https://github.com/haykh/brender_astro.git`` to clone the repo.
+1. Go to any desired directory of your choice within the terminal.
+2. Clone the repo::
+
+    $ git clone https://github.com/haykh/brender_astro.git
+
 3. The library and all the necessary files will be downloaded to the current directory.
 
 .. warning::
