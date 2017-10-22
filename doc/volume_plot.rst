@@ -108,6 +108,14 @@ You then can make an object that will have your volumetric plot::
 
     density = br.VolumePlot(bvoxfile, name = 'my_density')
 
+.. note::
+
+    If you later decide to redo your plot using a different ``.bvox`` file, there is no need to delete the object. Simply do::
+
+        density.voxdata = '/path-to-new/bvoxfile.bvox'
+
+    This will redo the plot only changing the volumetric pixel data provided (shape and other parameters will remain the same).
+
 This creates a cube and fills it in according to voxel data. You can then work with this ``density`` object. By default the density is in 2x2x2 cube. We can adjust it by doing::
 
     density.size = shape # <-- set the shape to already predefined
