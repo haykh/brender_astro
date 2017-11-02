@@ -3,7 +3,7 @@
 
 Full [documentation](http://brender.readthedocs.io/) available here.
 
-![rotating psr](https://media.giphy.com/media/3ohhwfiCADgxSFxTBC/giphy.gif)
+![rotating psr](https://media.giphy.com/media/l2ZE86VA2dCpZawxy/giphy.gif)
 
 ##### References
 + Inspired by incompleteness and inconvenience of [AstroBlend](http://www.astroblend.com/).
