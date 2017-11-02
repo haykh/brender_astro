@@ -36,6 +36,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="BRender 1.0 documentation" href="index.html"/>
+        <link rel="next" title="Particle plot" href="particle_plot.html"/>
         <link rel="prev" title="Basics of BRender" href="brender_basics.html"/> 
 
   
@@ -107,6 +108,8 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="particle_plot.html">Particle plot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fieldline_plot.html">Fieldline plot</a></li>
 </ul>
 
             
@@ -266,12 +269,20 @@
 <p class="last">For tigressdata the rest can be done within the Blender console.</p>
 </div>
 <p>If you working within tigressdata, specify a path to <code class="docutils literal"><span class="pre">.bvox</span></code> file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bvoxfile</span> <span class="o">=</span> <span class="s1">&#39;/home/hakobyan/Downloads/outputs/bvox/dens.bvox&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bvoxfile</span> <span class="o">=</span> <span class="s1">&#39;/path-to/dens.bvox&#39;</span>
 </pre></div>
 </div>
 <p>You then can make an object that will have your volumetric plot:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">density</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="n">VolumePlot</span><span class="p">(</span><span class="n">bvoxfile</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;my_density&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>If you later decide to redo your plot using a different <code class="docutils literal"><span class="pre">.bvox</span></code> file, there is no need to delete the object. Simply do:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">density</span><span class="o">.</span><span class="n">voxdata</span> <span class="o">=</span> <span class="s1">&#39;/path-to-new/bvoxfile.bvox&#39;</span>
+</pre></div>
+</div>
+<p class="last">This will redo the plot only changing the volumetric pixel data provided (shape and other parameters will remain the same).</p>
 </div>
 <p>This creates a cube and fills it in according to voxel data. You can then work with this <code class="docutils literal"><span class="pre">density</span></code> object. By default the density is in 2x2x2 cube. We can adjust it by doing:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">density</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">shape</span> <span class="c1"># &lt;-- set the shape to already predefined</span>
@@ -348,7 +359,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="c1"># finding the shape and scale of our simulation</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/path-to/simulation-output&#39;</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/path-to/flds.tot.001&#39;</span> <span class="c1"># &lt;-- this is for TRISTAN</span>
 <span class="n">shape0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bvox</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;dens&#39;</span><span class="p">))</span>
 <span class="n">scale</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">shape0</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 <span class="n">shape</span> <span class="o">=</span> <span class="n">shape0</span> <span class="o">*</span> <span class="n">scale</span>
@@ -430,7 +441,7 @@
 
 <span class="kn">import</span> <span class="nn">brender</span> <span class="kn">as</span> <span class="nn">br</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path-to-brender-repo&#39;</span><span class="p">)</span> <span class="c1"># &lt;-- you can use mine: &#39;/home/hakobyan/Downloads/brender_astro&#39;</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/path-to-brender-repo&#39;</span><span class="p">)</span> <span class="c1"># you can use mine: &#39;/home/hakobyan/Downloads/brender_astro&#39;</span>
 <span class="kn">import</span> <span class="nn">lib.to_bvox</span> <span class="kn">as</span> <span class="nn">bvox</span>
 
 <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
@@ -438,7 +449,7 @@
 <span class="c1">#   1. Preparing</span>
 <span class="c1">#</span>
 <span class="c1"># # # # # # # # # # # # # # # # # # # # # # # #</span>
-<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/path-to/simulation-output&#39;</span>
+<span class="n">fname</span> <span class="o">=</span> <span class="s1">&#39;/path-to/flds.tot.001&#39;</span>
 <span class="n">shape0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bvox</span><span class="o">.</span><span class="n">getShape</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;dens&#39;</span><span class="p">))</span>
 <span class="n">scale</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">shape0</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
 <span class="n">shape</span> <span class="o">=</span> <span class="n">shape0</span> <span class="o">*</span> <span class="n">scale</span>
@@ -549,6 +560,8 @@
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="particle_plot.html" class="btn btn-neutral float-right" title="Particle plot" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="brender_basics.html" class="btn btn-neutral" title="Basics of BRender" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

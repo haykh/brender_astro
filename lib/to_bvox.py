@@ -8,6 +8,7 @@ def defaultNormalizeFunc(value):
 def defaultValueFunc(data):
     return data['dens'].value
 
+# this function is specifically for hdf5 format
 def makeBvox(out_path, fname,
              valueFunc = defaultValueFunc,
              normalizeFunc = defaultNormalizeFunc,

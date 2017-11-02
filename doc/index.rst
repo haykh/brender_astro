@@ -13,7 +13,11 @@ BRender Main
    installation
    brender_basics
    volume_plot
+   particle_plot
+   fieldline_plot
 
 .. include installation
 .. include brender_basics
 .. include volume_plot
+.. include particle_plot
+.. include fieldline_plot

@@ -306,7 +306,8 @@ class ParticlePlot(object):
                  name="NoNamePPlot",
                  halo_size = 0.005,
                  location = (0, 0, 0),
-                 color = (0, 0, 1)
+                 color = (0, 0, 1),
+                 scale = 1.
                          ):
         deselect_all()
         # creating object
@@ -331,9 +332,9 @@ class ParticlePlot(object):
         bm = bmesh.from_edit_mesh(ob.data)
         if hasattr(bm.verts, "ensure_lookup_table"):
             bm.verts.ensure_lookup_table()
-        bm.verts[0].co = (coords[0][0], coords[0][1], coords[0][2])
+        bm.verts[0].co = (coords[0][0] * scale, coords[0][1] * scale, coords[0][2] * scale)
         for i in range(0, len(coords)):
-            bm.verts.new((coords[i][0], coords[i][1], coords[i][2]))
+            bm.verts.new((coords[i][0] * scale, coords[i][1] * scale, coords[i][2] * scale))
         bmesh.update_edit_mesh(ob.data)
         bpy.ops.object.mode_set(mode='OBJECT')
         self.__name = name
@@ -341,6 +342,7 @@ class ParticlePlot(object):
         self.__halo_size = halo_size
         self.__location = location
         self.__coords = coords
+        self.__scale = scale
     @property
     def name(self):
         return self.__name
@@ -398,12 +400,36 @@ class ParticlePlot(object):
             bm.verts.remove(bm.verts[0])
         if hasattr(bm.verts, "ensure_lookup_table"):
             bm.verts.ensure_lookup_table()
-        bm.verts[0].co = (coords[0][0], coords[0][1], coords[0][2])
+        bm.verts[0].co = (coords[0][0] * self.__scale, coords[0][1] * self.__scale, coords[0][2] * self.__scale)
         for i in range(0, len(coords)):
-            bm.verts.new((coords[i][0], coords[i][1], coords[i][2]))
+            bm.verts.new((coords[i][0] * self.__scale, coords[i][1] * self.__scale, coords[i][2] * self.__scale))
         bmesh.update_edit_mesh(ob.data)
         bpy.ops.object.mode_set(mode='OBJECT')
         self.__coords = coords
+    @property
+    def scale(self):
+        return self.__scale
+    @scale.setter
+    def coords(self, scale):
+        ob = bpy.data.objects[self.__name]
+        deselect_all()
+        ob.select = True
+        bpy.context.scene.objects.active = ob
+        bpy.ops.object.mode_set(mode='EDIT')
+        import bmesh
+        bm = bmesh.from_edit_mesh(ob.data)
+        for i in range(len(self.__coords)):
+            if hasattr(bm.verts, "ensure_lookup_table"):
+                bm.verts.ensure_lookup_table()
+            bm.verts.remove(bm.verts[0])
+        if hasattr(bm.verts, "ensure_lookup_table"):
+            bm.verts.ensure_lookup_table()
+        bm.verts[0].co = (coords[0][0] * scale, coords[0][1] * scale, coords[0][2] * scale)
+        for i in range(0, len(coords)):
+            bm.verts.new((coords[i][0] * scale, coords[i][1] * scale, coords[i][2] * scale))
+        bmesh.update_edit_mesh(ob.data)
+        bpy.ops.object.mode_set(mode='OBJECT')
+        self.__scale = scale
 
 class FieldLines(object):
     def __init__(self,

@@ -102,7 +102,7 @@ Nailing the plot
 
 If you working within tigressdata, specify a path to ``.bvox`` file::
 
-    bvoxfile = '/home/hakobyan/Downloads/outputs/bvox/dens.bvox'
+    bvoxfile = '/path-to/dens.bvox'
 
 You then can make an object that will have your volumetric plot::
 
@@ -194,7 +194,7 @@ for Mac
     import numpy as np
 
     # finding the shape and scale of our simulation
-    fname = '/path-to/simulation-output'
+    fname = '/path-to/flds.tot.001' # <-- this is for TRISTAN
     shape0 = np.array(bvox.getShape(fname, 'dens'))
     scale = 2. / (shape0.min())
     shape = shape0 * scale
@@ -286,7 +286,7 @@ outside Blender:
     #   1. Preparing
     #
     # # # # # # # # # # # # # # # # # # # # # # # #
-    fname = '/path-to/simulation-output'
+    fname = '/path-to/flds.tot.001'
     shape0 = np.array(bvox.getShape(fname, 'dens'))
     scale = 2. / (shape0.min())
     shape = shape0 * scale

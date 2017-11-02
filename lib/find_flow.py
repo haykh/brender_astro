@@ -1,5 +1,5 @@
 import numpy as np
-from hilbert_curve import TR_algo8
+from lib.hilbert_curve import TR_algo8
 
 def next_greater_power_of_2(x):
     return (int(x-1)).bit_length()

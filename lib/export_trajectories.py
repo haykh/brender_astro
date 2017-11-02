@@ -33,7 +33,7 @@ def generateFieldlines(fpath,
     y = np.array(y)
     z = np.array(z)
 
-    from find_flow import _gen_starting_points_3d, next_greater_power_of_2, grid2map_3d, map2grid_3d, integrate_3d
+    from lib.find_flow import _gen_starting_points_3d, next_greater_power_of_2, grid2map_3d, map2grid_3d, integrate_3d
 
     n_cells_x = int(30 * density)
     n_cells_y = int(30 * density)
