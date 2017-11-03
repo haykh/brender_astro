@@ -12,6 +12,7 @@ def defaultValueFunc(data):
 def makeBvox(out_path, fname,
              valueFunc = defaultValueFunc,
              normalizeFunc = defaultNormalizeFunc,
+             normalizeVal = None,
              min_val = 0.,
              max_val = 1.,
              prefix = 'dens'):
@@ -19,7 +20,10 @@ def makeBvox(out_path, fname,
     z = valueFunc(data)
     z = np.array(z)
     z = normalizeFunc(z)
-    z /= z.max()
+    if normalizeVal is None:
+        z /= z.max()
+    else:
+        z /= normalizeVal
     z[z < min_val] = min_val
     z[z > max_val] = max_val
 
