@@ -7,7 +7,7 @@ def runScript(filename):
 #   Working with Scene
 def clearScene():
     for mat in bpy.data.materials:
-        bpy.data.materials.remove(mat, do_unlink = True)
+        bpy.data.materials.remove(mat)
     for tex in bpy.data.textures:
         bpy.data.textures.remove(tex, do_unlink = True)
     for ob in bpy.data.objects:
