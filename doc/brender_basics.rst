@@ -25,7 +25,7 @@ Now ``cam`` contains the camera object and the related empty object. By default 
 
 We can also adjust where the direction at which camera is pointing::
 
-    my_cam.pointing = (0.4, 1., 1.)
+    cam.pointing = (0.4, 1., 1.)
 
 This might be handy when doing an animation and need a complex camera motion. Other options to play around with::
 

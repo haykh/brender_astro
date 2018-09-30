@@ -175,7 +175,7 @@ class VolumePlot(object):
         mat.volume.emission = 0.
         mat.volume.scattering = 1.4
         mat.volume.step_method = 'RANDOMIZED'
-        mat.volume.step_size = 0.01
+        mat.volume.step_size = 0.005
 
         matSlot = mat.texture_slots.add()
         matTex = bpy.data.textures.new(name, 'VOXEL_DATA')

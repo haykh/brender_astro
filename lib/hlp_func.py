@@ -6,22 +6,41 @@ def runScript(filename):
 # # # # # # # # # # # # # # # # # #
 #   Working with Scene
 def clearScene():
-    for mat in bpy.data.materials:
-        bpy.data.materials.remove(mat)
-    for tex in bpy.data.textures:
-        bpy.data.textures.remove(tex, do_unlink = True)
-    for ob in bpy.data.objects:
-        bpy.data.objects.remove(ob, do_unlink = True)
-    for cur in bpy.data.curves:
-        bpy.data.curves.remove(cur, do_unlink = True)
-    for mesh in bpy.data.meshes:
-        bpy.data.meshes.remove(mesh, do_unlink = True)
-    for img in bpy.data.images:
-        bpy.data.images.remove(img, do_unlink = True)
-    for cam in bpy.data.cameras:
-        bpy.data.cameras.remove(cam, do_unlink = True)
-    for lmp in bpy.data.lamps:
-        bpy.data.lamps.remove(lmp, do_unlink = True)
+    for scene in bpy.data.scenes:
+        for obj in scene.objects:
+            scene.objects.unlink(obj)
+    for bpy_data_iter in (
+            bpy.data.objects,
+            bpy.data.meshes,
+            bpy.data.lamps,
+            bpy.data.cameras,
+    ):
+        for id_data in bpy_data_iter:
+            bpy_data_iter.remove(id_data)
+    for block in bpy.data.meshes:
+        if block.users == 0:
+            bpy.data.meshes.remove(block)
+    for block in bpy.data.materials:
+        if block.users == 0:
+            bpy.data.materials.remove(block)
+    for block in bpy.data.textures:
+        if block.users == 0:
+            bpy.data.textures.remove(block)
+    for block in bpy.data.images:
+        if block.users == 0:
+            bpy.data.images.remove(block)
+    for block in bpy.data.curves:
+        if block.users == 0:
+            bpy.data.curves.remove(block)
+
+def removeFieldlines(fld_data_name):
+    for scene in bpy.data.scenes:
+        scene.objects.unlink(scene.objects[fld_data_name])
+    bpy.data.objects.remove(bpy.data.objects[fld_data_name])
+    bpy.data.materials.remove(bpy.data.materials[fld_data_name])
+    for block in bpy.data.curves:
+        if block.users == 0:
+            bpy.data.curves.remove(block)
 
 def sceneHasCamera():
     for sc_obj in bpy.context.scene.objects:

@@ -6,7 +6,7 @@ Installation
 
 For tigressdata cluster machines you can go in two different ways.
 
-- `Easy way`_: you make an alias to run an already configured Blender from my ``hakobyan`` directory.
+- `Easy way`_: you make an alias to run an already configured Blender from my home directory.
 - `Difficult way`_: you download and set everything up yourself.
 
 .. _easy-way:
@@ -24,7 +24,7 @@ Easy way
 
 2. Add the following alias to the end of the file::
 
-    alias blender="vglrun /home/hakobyan/Downloads/Blender/blender -P /home/hakobyan/Downloads/brender_astro/initialize_blender/init_script.py"
+    alias blender="vglrun /home/hakobyan/Downloads/Blender/blender -P /home/hakobyan/Downloads/BRender/initialize_blender/init_script.py"
 
 You're all set. Now by running ``blender`` from the command line you'll get a Blender app with preloaded BRender module. You might also want to set up a default scene, check :ref:`instructions here <setuptig>`.
 

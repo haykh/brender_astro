@@ -276,7 +276,6 @@ outside Blender:
 
     """
 
-    import brender as br
     import sys
     sys.path.append('/path-to-brender-repo') # you can use mine: '/home/hakobyan/Downloads/brender_astro'
     import lib.to_bvox as bvox
