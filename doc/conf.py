@@ -58,7 +58,7 @@ author = u'Hayk Hakobyan'
 # built documents.
 #
 # The short X.Y version.
-version = u'1.0'
+version = u'1.2'
 # The full version, including alpha/beta/rc tags.
 release = u'1.0'
 
@@ -86,7 +86,7 @@ todo_include_todos = False
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme>=0.3.1'
+html_theme = 'sphinx_rtd_theme'
 
 # html_theme_options = {
 #     "stickysidebar": "true"
