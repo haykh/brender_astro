@@ -83,7 +83,7 @@ class Sphere(object):
                  color = (0, 0.16, 0.7),
                  size = (2, 2, 2),
                  location = (0, 0, 0),
-                 intensity = 0.4):
+                 intensity = 0.02):
         deselect_all()
         bpy.ops.mesh.primitive_uv_sphere_add(segments=32, size=1.)
         sphere = bpy.data.objects['Sphere']
@@ -92,6 +92,8 @@ class Sphere(object):
         sphere.dimensions = size
         sphere.location = location
         sph_mat = bpy.data.materials.new(name)
+        sph_mat.diffuse_intensity = .1
+        sph_mat.specular_intensity = .1
         sph_mat.diffuse_color = getRightColor(color)
         sph_mat.transparency_method = 'RAYTRACE'
         sph_mat.use_shadeless = False
@@ -173,9 +175,9 @@ class VolumePlot(object):
         mat.volume.density = 0.
         mat.volume.density_scale = 2.
         mat.volume.emission = 0.
-        mat.volume.scattering = 1.4
+        mat.volume.scattering = 0.2
         mat.volume.step_method = 'RANDOMIZED'
-        mat.volume.step_size = 0.005
+        mat.volume.step_size = 0.001
 
         matSlot = mat.texture_slots.add()
         matTex = bpy.data.textures.new(name, 'VOXEL_DATA')
